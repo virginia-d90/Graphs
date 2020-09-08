@@ -191,7 +191,7 @@ class Graph:
                         copy.append(node)
                         to_search.push(copy)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, path = [], visited = set()):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -199,7 +199,33 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+
+        
+        #add node to visited
+        visited.add(starting_vertex)
+
+        #make current path equal to previous path + node
+        current_path = [*path, starting_vertex]
+        
+        #get last vertex of the path
+        last_node  = current_path[-1]
+
+        #check if its the target
+        if last_node == destination_vertex:
+            return current_path
+        
+        for neighbor in self.get_neighbors(starting_vertex):
+
+            #check if each neighbor is in visited
+            if neighbor not in visited:
+                #repeat the steps above
+                neighbor_path = self.dfs_recursive(neighbor, destination_vertex, current_path, visited)
+
+                #unsure on this part but need it bc error was getting thrown
+                if neighbor_path is not None:
+                    return neighbor_path
+
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
