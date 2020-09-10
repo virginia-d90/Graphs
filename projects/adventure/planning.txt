@@ -1,0 +1,40 @@
+# player needs to visit all 500 rooms
+
+#as a player if I start in a room I would look at all of my exits--or rather directions i can travel
+    #I choose a direction to take-not sure if random or rather choose one direction first
+    #i make choices until i reach a dead end
+    #i want to only go back through the entrance i used after i have gone through every other door
+#I will be done when i have visited all 500 rooms
+    #I will know the connections of each room to every other room 
+#Need to keep track of rooms that have been visited --> visited rooms
+#Need to keep track of directions traveled for each room --> visited exits 
+
+Planning:
+    ##each time the player moves add the direction to the traversal_path
+    ##i feel like several helper methods will make this easier
+    1.  create a method to track completeness of graph:
+        probably a dict so I can keep track of rooms added and the paths visited for those rooms
+              maze = {
+                  0 : {'n':'?','s':'5','e':'?','w':'?'}
+                  5 : {'n':'?','s':'?','e':'?'}
+              }
+        can get the info to populate from get_exits()
+
+    2.  create a dfs method to move until a dead end is hit
+        there isn't a destination vertex, just a room where all exits have been visited
+
+    3. create a bfs method to use once you have hit a dead end 
+        it will move backwards and find the first room to have a "?" in its direction values
+
+    
+    while len(maze) < len(room_graph):
+        start player in current room
+        check if room is in maze
+        if not in maze add it using method 1
+        create a place to store directions/paths that have not been explored
+        check each direction for a room in maze to see if there is a "?" 
+            if yes add it to the unexplored list
+        if there is an unexplored path/direction
+            use method 2 to find a new dead end
+        else use method 3 to reverse the path until a room with an unexplored path is found
+        if there isn't a reverse path i.e. you need to start choose a random door

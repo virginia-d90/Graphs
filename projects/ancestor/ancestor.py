@@ -76,10 +76,10 @@ def earliest_ancestor(ancestors, starting_node):
             longest_path = current_path
         
         #check if size of path is equal ???not sure if this section is needed 
-        if len(current_path) == len(longest_path):
-            #check for the smaller last_node
-            if current_path[-1] < longest_path[-1]: 
-                longest_path = current_path
+        # if len(current_path) == len(longest_path):
+        #     #check for the smaller last_node
+        #     if current_path[-1] < longest_path[-1]: 
+        #         longest_path = current_path
 
         if last_node not in visited:
             visited.add(last_node)
@@ -96,7 +96,7 @@ def earliest_ancestor(ancestors, starting_node):
     else:
         return longest_path[-1]
     
-a = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
+a = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (11, 5), (11, 8), (8, 9), (4, 8), (10, 1)]
 
-b = a = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (11, 5), (11, 8), (8, 9), (4, 8), (10, 1)]
-print(earliest_ancestor(b, 9))
+b =  [(10, 1), (11, 8), (8, 9), (4, 8), (4, 5), (5, 7), (5, 6), (3, 6), (2, 3), (1, 3)]
+print(earliest_ancestor(a, 8))

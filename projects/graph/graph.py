@@ -163,31 +163,29 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        # Create an empty queue and enqueue A PATH TO the starting vertex ID
+        
         to_search = Stack()
         to_search.push([starting_vertex])
-        # Create a Set to store visited vertices
+        
         visited = set()
-        # While the queue is not empty...
+        
         while to_search.size() > 0:
-            # Dequeue the first PATH
+           
             current_path = to_search.pop() 
-            # Grab the last vertex from the PATH
             last_node = current_path[-1]
-            # If that vertex has not been visited...
+            
             if last_node not in visited:
-                # CHECK IF IT'S THE TARGET
                 if last_node == destination_vertex:
-                    # IF SO, RETURN PATH
+                    
                     return current_path
+
                 else:
-                    # Mark it as visited...
+                    
                     visited.add(last_node)
-                    # Then add A PATH TO its neighbors to the back of the queue
+                    
                     for node in self.get_neighbors(last_node):
-                        # COPY THE PATH
+                     
                         copy = current_path[:]
-                        # APPEND THE NEIGHOR TO THE BACK
                         copy.append(node)
                         to_search.push(copy)
 
@@ -220,7 +218,7 @@ class Graph:
             if neighbor not in visited:
                 #repeat the steps above
                 neighbor_path = self.dfs_recursive(neighbor, destination_vertex, current_path, visited)
-
+                
                 #unsure on this part but need it bc error was getting thrown
                 if neighbor_path is not None:
                     return neighbor_path
