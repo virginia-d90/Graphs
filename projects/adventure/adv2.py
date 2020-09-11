@@ -55,11 +55,11 @@ def traverse_all_rooms(starting_room):
         #tracks the available travel directions for the current room
         available_directions = []
 
-        #add current room to visited rooms
-        visited_rooms.add(player.current_room)
 
         #get the exits for the current room
         exits = player.current_room.get_exits()
+        #add current room to visited rooms
+        visited_rooms.add(player.current_room)
 
         for exit in exits:
             #if there is an exit
@@ -67,11 +67,19 @@ def traverse_all_rooms(starting_room):
                 if player.current_room.get_room_in_direction(exit) not in visited_rooms:
                     #add exit to available directions
                     available_directions.append(exit)
-                    # print('options', available_directions)
+        print('options', player.current_room.id, available_directions)
 
 
         #if there is an available direction in list
         if len(available_directions) > 0:
+            # #choose a random direction
+            # random_index = random.randint(0, len(available_directions) - 1)
+            # #add move to traversal_path
+            # traversal_path.append(available_directions[random_index])
+            # #add direction to stack
+            # moves.push(available_directions[random_index])
+            # #move the player
+            # player.travel(available_directions[random_index])
             if "n" in available_directions:
                 traversal_path.append('n')
                 moves.push('n')
@@ -97,22 +105,7 @@ def traverse_all_rooms(starting_room):
             player.travel(reverse_direction(last_move))
 traverse_all_rooms(0)
 
-### Not using for revised solution ###
-# def add_to_maze(room):
-#     #make each room a key and each value a dictionary that holds the directions
-#     maze[room.id] = {}
 
-#     #use the get_exits from the room class
-#     exits = room.get_exits()
-
-#     #take each direction that is returned from get_exits
-#     for direction in exits:
-#         #make each exit a key and set the value to '?'
-#             #the '?' will get replaced by another direction as paths get explored
-#         maze[room.id][direction] = '?'
-#     return maze
-
-# print(add_to_maze(player.current_room))
 
 
 # TRAVERSAL TEST
