@@ -32,21 +32,33 @@ traversal_path = []
 maze = {} #will hold all information
 visited_rooms = set()#looks like I need to use this too bc of the test file
 
-def add_to_maze(room):
-    #make each room a key and each value a dictionary that holds the directions
-    maze[room.id] = {}
 
-    #use the get_exits from the room class
-    exits = room.get_exits()
+#a way to translate the reverse path
+def reverse_direction(direction):
+    if direction == 's':
+        return 'n'
+    elif direction == 'n':
+        return 's'
+    elif direction == 'e':
+        return 'w'
+    elif direction == 'w':
+        return 'e'
 
-    #take each direction that is returned from get_exits
-    for direction in exits:
-        #make each exit a key and set the value to '?'
-            #the '?' will get replaced by another direction as paths get explored
-        maze[room.id][direction] = '?'
-    return maze
+# def add_to_maze(room):
+#     #make each room a key and each value a dictionary that holds the directions
+#     maze[room.id] = {}
 
-print(add_to_maze(player.current_room))
+#     #use the get_exits from the room class
+#     exits = room.get_exits()
+
+#     #take each direction that is returned from get_exits
+#     for direction in exits:
+#         #make each exit a key and set the value to '?'
+#             #the '?' will get replaced by another direction as paths get explored
+#         maze[room.id][direction] = '?'
+#     return maze
+
+# print(add_to_maze(player.current_room))
 
 
 # TRAVERSAL TEST

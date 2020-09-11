@@ -38,3 +38,37 @@ Planning:
             use method 2 to find a new dead end
         else use method 3 to reverse the path until a room with an unexplored path is found
         if there isn't a reverse path i.e. you need to start choose a random door
+
+
+
+Revised planning:
+    planning above was getting too confusing --- still think it would work but going to try a simpler approach
+    still thinking of going DF bc you want to move until you hit dead ends
+
+    create a method to switch directions when you backtrack
+
+    keep track of visted rooms and rooms to be visited
+    add current room to visited
+
+    while len(visited rooms) < len(room_graph):
+        get the exits for the current room
+        make a list to hold the available directions
+        for each exit:
+            if the room in a given direction is not in the visited_rooms add the direction to 'available directions' list
+        once in a new room set the current room to visited
+
+        if play can move in at least one direction:
+            choose a random direction
+            add direction to moves stack
+            move player in that direction
+            add direction to traversal_path
+
+        if player has no available directions:
+            backtrack
+            get the last move made from the stack
+            travel in the opposite direction of that move to reverse the path
+            move the player 
+            add move to traversal_path
+
+
+    
