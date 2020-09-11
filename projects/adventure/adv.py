@@ -4,6 +4,8 @@ from world import World
 
 import random
 from ast import literal_eval
+from util import Stack, Queue
+import random 
 
 # Load world
 world = World()
@@ -29,10 +31,6 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
-maze = {} #will hold all information
-visited_rooms = set()#looks like I need to use this too bc of the test file
-
-
 #a way to translate the reverse path
 def reverse_direction(direction):
     if direction == 's':
@@ -44,6 +42,53 @@ def reverse_direction(direction):
     elif direction == 'w':
         return 'e'
 
+def traverse_all_rooms(starting_room):
+    #keep track of path
+    moves = Stack()
+    
+    visited_rooms = set()
+    #make a starting point
+    starting_room = player.current_room
+
+    #continue until all rooms are visited
+    while len(visited_rooms) < len(room_graph):
+        #tracks the available travel directions for the current room
+        available_directions = []
+
+        #add current room to visited rooms
+        visited_rooms.add(player.current_room)
+
+        #get the exits for the current room
+        exits = player.current_room.get_exits()
+
+        for exit in exits:
+            #if there is an exit
+            if exit is not None:
+                if player.current_room.get_room_in_direction(exit) not in visited_rooms:
+                    #add exit to available directions
+                    available_directions.append(exit)
+                    # print('options', available_directions)
+
+
+        #if there is an available direction in list
+        if len(available_directions) > 0:
+            #choose a random direction
+            random_index = random.randint(0, len(available_directions) - 1)
+            #add move to traversal_path
+            traversal_path.append(available_directions[random_index])
+            #add direction to stack
+            moves.push(available_directions[random_index])
+            #move the player
+            player.travel(available_directions[random_index])
+        
+        #there are no more available directions
+        else:
+            last_move = moves.pop()
+            traversal_path.append(reverse_direction(last_move))
+            player.travel(reverse_direction(last_move))
+traverse_all_rooms(0)
+
+### Not using for revised solution ###
 # def add_to_maze(room):
 #     #make each room a key and each value a dictionary that holds the directions
 #     maze[room.id] = {}
@@ -62,19 +107,19 @@ def reverse_direction(direction):
 
 
 # TRAVERSAL TEST
-# visited_rooms = set()
-# player.current_room = world.starting_room
-# visited_rooms.add(player.current_room)
+visited_rooms = set()
+player.current_room = world.starting_room
+visited_rooms.add(player.current_room)
 
-# for move in traversal_path:
-#     player.travel(move)
-#     visited_rooms.add(player.current_room)
+for move in traversal_path:
+    player.travel(move)
+    visited_rooms.add(player.current_room)
 
-# if len(visited_rooms) == len(room_graph):
-#     print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
-# else:
-#     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-#     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
+if len(visited_rooms) == len(room_graph):
+    print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+else:
+    print("TESTS FAILED: INCOMPLETE TRAVERSAL")
+    print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
 
 

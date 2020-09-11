@@ -50,12 +50,12 @@ Revised planning:
     keep track of visted rooms and rooms to be visited
     add current room to visited
 
+    once in a new room set the current room to visited
     while len(visited rooms) < len(room_graph):
         get the exits for the current room
         make a list to hold the available directions
         for each exit:
             if the room in a given direction is not in the visited_rooms add the direction to 'available directions' list
-        once in a new room set the current room to visited
 
         if play can move in at least one direction:
             choose a random direction
